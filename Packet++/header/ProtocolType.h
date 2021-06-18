@@ -248,6 +248,11 @@ namespace pcpp
 	const ProtocolType IPSec = 0x1800000000;
 
 	/**
+	 * InNetworkCC Info Header 
+	 */
+	const ProtocolType InnetworkCCInfo = 0x2000000000; 
+
+	/**
 	 * An enum representing OSI model layers
 	 */
 	enum OsiModelLayer

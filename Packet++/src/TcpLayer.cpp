@@ -11,6 +11,7 @@
 #include "BgpLayer.h"
 #include "SSHLayer.h"
 #include "DnsLayer.h"
+#include "InnetworkccInfoLayer.h"
 #include "PacketUtils.h"
 #include "Logger.h"
 #include <string.h>
@@ -350,8 +351,13 @@ void TcpLayer::parseNextLayer()
 	size_t payloadLen = m_DataLen - headerLen;
 	uint16_t portDst = getDstPort();
 	uint16_t portSrc = getSrcPort();
-
-	if (HttpMessage::isHttpPort(portDst) && HttpRequestFirstLine::parseMethod((char*)payload, payloadLen) != HttpRequestLayer::HttpMethodUnknown)
+	pcpp::tcphdr* tcpHeader = this->getTcpHeader();
+	uint8_t res = tcpHeader->reserved;
+	
+	if (res == 0b0010){
+		m_NextLayer = new InnetworkccInfoLayer(payload, payloadLen, this, m_Packet);
+	}
+	else if (HttpMessage::isHttpPort(portDst) && HttpRequestFirstLine::parseMethod((char*)payload, payloadLen) != HttpRequestLayer::HttpMethodUnknown)
 		m_NextLayer = new HttpRequestLayer(payload, payloadLen, this, m_Packet);
 	else if (HttpMessage::isHttpPort(portSrc) && HttpResponseFirstLine::parseStatusCode((char*)payload, payloadLen) != HttpResponseLayer::HttpStatusCodeUnknown)
 		m_NextLayer = new HttpResponseLayer(payload, payloadLen, this, m_Packet);
