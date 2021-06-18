@@ -76,7 +76,7 @@ PCAPPP_BUILD_FLAGS += -DHAS_SET_DIRECTION_ENABLED
 endif
 
 ifdef USE_DPDK
-PCAPPP_BUILD_FLAGS += -msse -msse2 -msse3 -mssse3
+PCAPPP_BUILD_FLAGS += -msse -msse2 -msse3 -mssse3 -mavx
 endif
 	
 Obj/%.o: src/%.cpp Obj/%.d
