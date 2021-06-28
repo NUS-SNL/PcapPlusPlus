@@ -12,7 +12,7 @@ namespace pcpp{
     uint32_t InnetworkccInfoLayer::getAlgo_rwnd() const{
         uint32_t algo_rwnd;
         innetworkccInfohdr* hdrdata = (innetworkccInfohdr*)m_Data;
-        algo_rwnd = htonl(hdrdata->algo_rwnd);
+        algo_rwnd = ntohl(hdrdata->algo_rwnd);
         return algo_rwnd;
     }
 
@@ -23,7 +23,7 @@ namespace pcpp{
     uint32_t InnetworkccInfoLayer::getRtt_mul() const{
         uint32_t rtt_mul;
         innetworkccInfohdr* hdrdata = (innetworkccInfohdr*)m_Data;
-        rtt_mul = htonl(hdrdata->rtt_mul);
+        rtt_mul = ntohl(hdrdata->rtt_mul);
         return rtt_mul;
     }
 
@@ -34,7 +34,7 @@ namespace pcpp{
     uint32_t InnetworkccInfoLayer::getQdepth_sum() const{
         uint32_t qdepth_sum;
         innetworkccInfohdr* hdrdata = (innetworkccInfohdr*)m_Data;
-        qdepth_sum = htonl(hdrdata->qdepth_sum);
+        qdepth_sum = ntohl(hdrdata->qdepth_sum);
         return qdepth_sum;
     }
 
@@ -45,7 +45,7 @@ namespace pcpp{
     uint32_t InnetworkccInfoLayer::getPkt_count() const{
         uint32_t pkt_count;
         innetworkccInfohdr* hdrdata = (innetworkccInfohdr*)m_Data;
-        pkt_count = htonl(hdrdata->pkt_count);
+        pkt_count = ntohl(hdrdata->pkt_count);
         return pkt_count;
     }
 
@@ -53,10 +53,21 @@ namespace pcpp{
         innetworkccInfohdr* hdrdata = (innetworkccInfohdr*)m_Data;
         hdrdata->pkt_count = htonl(value);
     }
+    uint32_t InnetworkccInfoLayer::getQdepth() const{
+        uint32_t qdepth;
+        innetworkccInfohdr* hdrdata = (innetworkccInfohdr*)m_Data;
+        qdepth = ntohl(hdrdata->qdepth);
+        return qdepth;
+    }
+
+    void InnetworkccInfoLayer::setQdepth(uint32_t value){
+        innetworkccInfohdr* hdrdata = (innetworkccInfohdr*)m_Data;
+        hdrdata->qdepth = htonl(value);
+    }
     uint16_t InnetworkccInfoLayer::getFinal_rwnd() const{
         uint16_t final_rwnd;
         innetworkccInfohdr* hdrdata = (innetworkccInfohdr*)m_Data;
-        final_rwnd = htons(hdrdata->final_rwnd);
+        final_rwnd = ntohs(hdrdata->final_rwnd);
         return final_rwnd;
     }
 
@@ -67,7 +78,7 @@ namespace pcpp{
     uint16_t InnetworkccInfoLayer::getWs() const{
         uint16_t ws;
         innetworkccInfohdr* hdrdata = (innetworkccInfohdr*)m_Data;
-        ws = htons(hdrdata->ws);
+        ws = ntohs(hdrdata->ws);
         return ws;
     }
 
@@ -89,6 +100,7 @@ namespace pcpp{
         result_str += "rtt_mul: " + std::to_string(getRtt_mul()) + ", ";
         result_str += "qdepth_sum: " + std::to_string(getQdepth_sum()) + ", ";
         result_str += "pkt_count: " + std::to_string(getPkt_count()) + ", ";
+        result_str += "qdepth: " + std::to_string(getQdepth()) + ", ";
         result_str += "final_rwnd: " + std::to_string(getFinal_rwnd()) + ", ";
         result_str += "ws: " + std::to_string(getWs());
 

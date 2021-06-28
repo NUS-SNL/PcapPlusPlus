@@ -18,6 +18,7 @@ namespace pcpp{
         uint32_t      rtt_mul;
         uint32_t      qdepth_sum;
         uint32_t      pkt_count;
+        uint32_t      qdepth;
         uint16_t      final_rwnd;
         uint16_t      ws;
     };
@@ -42,6 +43,8 @@ namespace pcpp{
          void setQdepth_sum(uint32_t value);
          uint32_t getPkt_count() const;
          void setPkt_count(uint32_t value);
+         uint32_t getQdepth() const;
+         void setQdepth(uint32_t value);
          uint16_t getFinal_rwnd() const;
          void setFinal_rwnd(uint16_t value);
          uint16_t getWs() const;
